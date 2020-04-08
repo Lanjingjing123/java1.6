@@ -15,7 +15,7 @@ public class WriteFile {
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("test.txt"),"UTF-8"));
 
-        for (int i=0;i<30000;i++){
+        for (int i=0;i<300000;i++){
          sb.append("中华人民共和国").append("|+|").append("你好").append("中华人民共和国").append("|+|").append("你好").append("中华人民共和国").append("|+|").append("你好")
                  .append("中华人民共和国").append("|+|").append("你好")
                  .append("中华人民共和国").append("|+|").append("你好")

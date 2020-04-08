@@ -28,9 +28,9 @@ public class RSATester {
     }
 
     public static void main(String[] args) throws Exception {
-        test();
+//        test();
 //        testSign();
-//        testHttpSign();
+        testHttpSign();
     }
 
     static void test() throws Exception {
@@ -83,6 +83,36 @@ public class RSATester {
 
         boolean status = RSAUtils.verify(encodedData, publicKey, sign);
         System.err.println("签名验证结果：" + status);
+
+
+        byte[] dataSorce = Base64Utils.fileToByte("test.txt");
+        // 加密数据
+        byte[] encodedData2 = RSAUtils.encryptByPublicKey(dataSorce, publicKey);
+        String sign2 = RSAUtils.sign(encodedData2, privateKey);
+        System.err.println("签名：" + sign2);
+
+        // 加密数据写文件
+        Base64Utils.byteArrayToFile(encodedData2,"E:\\java1.6\\encrepFile.txt");
+//        System.out.println("加密后文字：\r\n" + new String(encodedData2));
+        Thread.sleep(100);
+
+        System.out.println("开始读加密文件...");
+        byte[] encodedData3 = Base64Utils.fileToByte("E:\\java1.6\\encrepFile.txt");
+
+        System.out.println("开始生产解密文件...");
+        byte[] decodedData2 = RSAUtils.decryptByPrivateKey(encodedData3, privateKey);
+
+        Base64Utils.byteArrayToFile(decodedData2,"E:\\java1.6\\result.txt");
+
+        String target2 = new String(decodedData2);
+
+//        System.out.println("解密后文字: \r\n" + target2);
+
+
+        boolean status1 = RSAUtils.verify(encodedData3, publicKey, sign2);
+        System.err.println("签名验证结果：" + status1);
+
+
     }
 
 
